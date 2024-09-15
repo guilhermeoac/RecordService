@@ -1,4 +1,4 @@
-rootProject.name = 'UserService'
+rootProject.name = 'RecordService'
 include 'application'
 include 'input-boundary'
 include 'repository'
