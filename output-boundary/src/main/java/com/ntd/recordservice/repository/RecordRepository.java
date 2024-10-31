@@ -10,6 +10,7 @@ public interface RecordRepository {
     Page<RecordResponseOutputDTO> findRecordsPageable(Long userId, RecordFilterOutputDTO dto);
 
     void save(Long userId, RecordOutputDTO dto);
+    void delete(Long id) throws Exception;
 
 }
 

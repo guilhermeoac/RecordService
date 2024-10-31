@@ -9,6 +9,7 @@ public interface RecordService {
     Page<RecordInputDTO> findRecordsPageable(Long userId, RecordFilterInputDTO dto);
 
     void save(Long userId, RecordInputDTO dto);
+    void delete(Long id) throws Exception;
 
 }
 

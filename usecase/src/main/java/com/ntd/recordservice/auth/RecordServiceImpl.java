@@ -55,4 +55,14 @@ public class RecordServiceImpl implements RecordService {
         }
 
     }
+
+    @Override
+    public void delete(Long id) throws Exception {
+        try {
+            recordRepository.delete(id);
+        } catch (Exception e) {
+            logger.error("RecordServiceImpl.save, message:" + e.getMessage(), e);
+            throw e;
+        }
+    }
 }

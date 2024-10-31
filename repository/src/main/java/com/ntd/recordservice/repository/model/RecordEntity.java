@@ -29,10 +29,21 @@ public class RecordEntity {
     private String operationResult;
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime date;
+    @Column(name = "active", nullable = false)
+    private Boolean active;
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 
     @PrePersist
     private void prePersist() {
         this.date = LocalDateTime.now();
+        this.active = true;
     }
 
     public RecordEntity() {

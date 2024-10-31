@@ -15,6 +15,7 @@ public interface RecordJpaRepository extends JpaRepository<RecordEntity, Long> {
 
     @Query("SELECT r FROM RecordEntity r " +
             "WHERE r.userId = :userId " +
+            "AND r.active = true " +
             "AND (:operationType IS NULL OR r.operationType = :operationType) " +
             "AND (:amount IS NULL OR r.amount = :amount) " +
             "AND (:cost IS NULL OR r.cost = :cost) " +

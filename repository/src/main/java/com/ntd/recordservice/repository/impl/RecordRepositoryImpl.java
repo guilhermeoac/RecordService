@@ -8,6 +8,7 @@ import com.ntd.recordservice.repository.interfaces.RecordJpaRepository;
 import com.ntd.recordservice.repository.model.RecordEntity;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class RecordRepositoryImpl implements RecordRepository {
                     dto.pageable()
             ).map( it -> new RecordResponseOutputDTO(it.getId(), it.getOperationType(), it.getAmount(), it.getCost(), it.getOperationResult(), it.getDate()));
         } catch (Exception e) {
-            logger.error("SubtractionOperationService.execute, message:" + e.getMessage(), e);
+            logger.error("RecordRepositoryImpl.findRecordsPageable, message:" + e.getMessage(), e);
             throw e;
         }
     }
@@ -45,7 +46,19 @@ public class RecordRepositoryImpl implements RecordRepository {
         try {
             recordJpaRepository.save(new RecordEntity(null, userId, dto.operationType(), dto.amount(), dto.cost(), dto.operationResult()));
         } catch (Exception e) {
-            logger.error("SubtractionOperationService.execute, message:" + e.getMessage(), e);
+            logger.error("RecordRepositoryImpl.save, message:" + e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    @Override
+    public void delete(Long id) throws Exception {
+        try {
+            var entity = recordJpaRepository.findById(id).orElseThrow(() -> new Exception("records.not.found"));
+            entity.setActive(false);
+            recordJpaRepository.save(entity);
+        } catch (Exception e) {
+            logger.error("RecordRepositoryImpl.execute, delete:" + e.getMessage(), e);
             throw e;
         }
     }
