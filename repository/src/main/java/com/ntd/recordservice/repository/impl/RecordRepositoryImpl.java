@@ -34,7 +34,7 @@ public class RecordRepositoryImpl implements RecordRepository {
                     dto.beginDate(),
                     dto.endDate(),
                     dto.pageable()
-            ).map( it -> new RecordResponseOutputDTO(it.getId(), it.getOperationType(), it.getAmount(), it.getCost(), it.getOperationResult(), it.getDate()));
+            ).map( it -> new RecordResponseOutputDTO(it.getId(), it.getOperationType(), it.getAmount(), it.getCost(), it.getOperationResult(), it.getDate(), it.getActive()));
         } catch (Exception e) {
             logger.error("RecordRepositoryImpl.findRecordsPageable, message:" + e.getMessage(), e);
             throw e;

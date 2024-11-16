@@ -43,7 +43,7 @@ class RecordServiceImplTest {
     void testFindRecordsPageable_Success() {
         Long userId = 1L;
         RecordFilterInputDTO filterDTO = new RecordFilterInputDTO("operationType", BigDecimal.TEN, BigDecimal.ONE, "result", LocalDateTime.now(), LocalDateTime.now(), 0, 10, "id", "ASC");
-        RecordResponseOutputDTO recordResponseOutputDTO = new RecordResponseOutputDTO(1L, "operationType", BigDecimal.TEN, BigDecimal.ONE, "result", LocalDateTime.now());
+        RecordResponseOutputDTO recordResponseOutputDTO = new RecordResponseOutputDTO(1L, "operationType", BigDecimal.TEN, BigDecimal.ONE, "result", LocalDateTime.now(), true);
         Page<RecordResponseOutputDTO> outputPage = new PageImpl<>(Collections.singletonList(recordResponseOutputDTO), PageRequest.of(0, 10), 1);
         when(recordRepository.findRecordsPageable(anyLong(), any(RecordFilterOutputDTO.class))).thenReturn(outputPage);
 
@@ -70,7 +70,7 @@ class RecordServiceImplTest {
     @Test
     void testSave_Success() {
         Long userId = 1L;
-        RecordInputDTO inputDTO = new RecordInputDTO(null, "operationType", BigDecimal.TEN, BigDecimal.ONE, "result", LocalDateTime.now());
+        RecordInputDTO inputDTO = new RecordInputDTO(null, "operationType", BigDecimal.TEN, BigDecimal.ONE, "result", LocalDateTime.now(), true);
 
         recordService.save(userId, inputDTO);
 
@@ -83,7 +83,7 @@ class RecordServiceImplTest {
     @Test
     void testSave_Exception() {
         Long userId = 1L;
-        RecordInputDTO inputDTO = new RecordInputDTO(null, "operationType", BigDecimal.TEN, BigDecimal.ONE, "result", LocalDateTime.now());
+        RecordInputDTO inputDTO = new RecordInputDTO(null, "operationType", BigDecimal.TEN, BigDecimal.ONE, "result", LocalDateTime.now(), true);
         doThrow(new RuntimeException("Database error")).when(recordRepository).save(anyLong(), any(RecordOutputDTO.class));
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> recordService.save(userId, inputDTO));

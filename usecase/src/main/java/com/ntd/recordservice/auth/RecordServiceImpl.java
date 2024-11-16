@@ -38,7 +38,7 @@ public class RecordServiceImpl implements RecordService {
                             PageRequest.of(dto.pageNumber(), dto.pageSize(), Sort.by(
                                     new Sort.Order(dto.sortDirection() != null ? Sort.Direction.fromString( dto.sortDirection()) : Sort.Direction.ASC,
                                             dto.sortField() != null ? dto.sortField() : "id"))
-                            ))).map(it -> new RecordInputDTO(it.id(), it.operationType(), it.amount(), it.cost(), it.operationResult(), it.date()));
+                            ))).map(it -> new RecordInputDTO(it.id(), it.operationType(), it.amount(), it.cost(), it.operationResult(), it.date(), it.active()));
         } catch (Exception e) {
             logger.error("RecordServiceImpl.findRecordsPageable, message:" + e.getMessage(), e);
             throw e;
